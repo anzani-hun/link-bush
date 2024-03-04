@@ -3,3 +3,23 @@ Hello {{ user }}!
 <a href="{% url 'logout' %}">
     Logout
 </a>
+
+
+{% for link in links %}
+
+<h4>{{link.title}}</h4>
+<a href="{{link.url}}">{{link.url}}</a>
+
+
+{% if link.visible %}
+<input type="checkbox" id="visible" checked>
+{% else %}
+<input type="checkbox" id="visible">
+{% endif %}
+
+
+<br>
+<button>Edit</button>
+<hr>
+
+{% endfor %}

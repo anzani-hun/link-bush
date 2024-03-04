@@ -18,9 +18,12 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 
+from links import views as links_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', views.login_page, name ='login'),
     path('', views.index, name='index'),
-    path('logout/', views.logout_page, name='logout')
+    path('logout/', views.logout_page, name='logout'),
+    path('page/<str:username>', links_views.getPageByUser),
 ]

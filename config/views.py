@@ -5,13 +5,16 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 
 
+from links.models import MyLink
+
 def logout_page(request):
     logout(request)
     return redirect('login')
 
 @login_required(login_url='login')
 def index(request):
-    return render(request, 'index.html')
+    my_links = MyLink.objects.filter(user = request.user )
+    return render(request, 'index.html', {'links':my_links})
 
 
 def login_page(request):
