@@ -26,4 +26,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('logout/', views.logout_page, name='logout'),
     path('page/<str:username>', links_views.getPageByUser),
+    path('api/changevisibility/', links_views.changeLinkVisibility),
 ]

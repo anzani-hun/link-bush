@@ -19,10 +19,15 @@ def getPageByUser(request, username):
 
 def changeLinkVisibility(request):
     if request.method == 'POST':
-        link_id = request.POST['link_id']
-        checked = request.POST['checked']
+        try:
+            link_id = request.POST['link_id']
+            checked = request.POST['checked']
 
 
-        link = MyLink.objects.get(id = link_id)
-        link.visible = checked
-        link.save()
+            link = MyLink.objects.get(id = link_id)
+            link.visible = checked
+            link.save()
+            return JsonResponse({'message':'Success'})
+        except Exception as e:
+            return JsonResponse({'message':str(e)})
+    return JsonResponse({'message':'Only POST allowed!'})

@@ -12,9 +12,9 @@ Hello {{ user }}!
 
 
 {% if link.visible %}
-<input type="checkbox" id="visible" checked>
+<input type="checkbox" id="visible" checked onclick="changeVisibility( {{ link_id }}, this, )">
 {% else %}
-<input type="checkbox" id="visible">
+<input type="checkbox" id="visible" onclick="changeVisibility( {{ link_id }}, this, {% csrf_token %})">
 {% endif %}
 
 
@@ -23,3 +23,20 @@ Hello {{ user }}!
 <hr>
 
 {% endfor %}
+
+<script>
+    function changeVisibility(link_id){
+        fetch('api/changevisibility/', {
+            method: 'POST',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            body: JSON.stringify({
+                link_id : link_id,
+                checked: checkbox.checked
+            })
+        })
+        .then(res => res.json())
+        .then(msg => console.log(msg))
+    }
+</script>
